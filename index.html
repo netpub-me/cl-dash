@@ -817,48 +817,84 @@ Budget-Tracker Dashboard:
 
                 <div class="demo-box" style="margin-top: 20px;">
                     <h3>🎨 Farbpalette anpassen</h3>
-                    <p style="margin-bottom: 15px;">Klicke auf die Farben, um sie zu ändern:</p>
+                    <p style="margin-bottom: 15px;">Wähle Farben mit dem Picker oder gib HEX-Codes direkt ein:</p>
 
-                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px;">
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 15px;">
                         <div style="display: flex; flex-direction: column; gap: 5px;">
                             <label for="colorBgPrimary" style="font-weight: bold;">Hintergrund (Primär)</label>
-                            <input type="color" id="colorBgPrimary" value="#0a0e14"
-                                   style="width: 100%; height: 40px; cursor: pointer; border: 1px solid var(--border); border-radius: 4px;">
+                            <div style="display: flex; gap: 8px;">
+                                <input type="color" id="colorBgPrimary" value="#0a0e14"
+                                       style="width: 60px; height: 40px; cursor: pointer; border: 1px solid var(--border); border-radius: 4px;">
+                                <input type="text" id="hexBgPrimary" value="#0a0e14" maxlength="7"
+                                       style="flex: 1; height: 40px; padding: 0 10px; background: var(--bg-tertiary); border: 1px solid var(--border); border-radius: 4px; color: var(--text-primary); font-family: 'Courier New', monospace;">
+                            </div>
                         </div>
 
                         <div style="display: flex; flex-direction: column; gap: 5px;">
                             <label for="colorBgSecondary" style="font-weight: bold;">Hintergrund (Cards)</label>
-                            <input type="color" id="colorBgSecondary" value="#151a23"
-                                   style="width: 100%; height: 40px; cursor: pointer; border: 1px solid var(--border); border-radius: 4px;">
+                            <div style="display: flex; gap: 8px;">
+                                <input type="color" id="colorBgSecondary" value="#151a23"
+                                       style="width: 60px; height: 40px; cursor: pointer; border: 1px solid var(--border); border-radius: 4px;">
+                                <input type="text" id="hexBgSecondary" value="#151a23" maxlength="7"
+                                       style="flex: 1; height: 40px; padding: 0 10px; background: var(--bg-tertiary); border: 1px solid var(--border); border-radius: 4px; color: var(--text-primary); font-family: 'Courier New', monospace;">
+                            </div>
                         </div>
 
                         <div style="display: flex; flex-direction: column; gap: 5px;">
                             <label for="colorAccentPrimary" style="font-weight: bold;">Akzent (Neon)</label>
-                            <input type="color" id="colorAccentPrimary" value="#39ff14"
-                                   style="width: 100%; height: 40px; cursor: pointer; border: 1px solid var(--border); border-radius: 4px;">
+                            <div style="display: flex; gap: 8px;">
+                                <input type="color" id="colorAccentPrimary" value="#39ff14"
+                                       style="width: 60px; height: 40px; cursor: pointer; border: 1px solid var(--border); border-radius: 4px;">
+                                <input type="text" id="hexAccentPrimary" value="#39ff14" maxlength="7"
+                                       style="flex: 1; height: 40px; padding: 0 10px; background: var(--bg-tertiary); border: 1px solid var(--border); border-radius: 4px; color: var(--text-primary); font-family: 'Courier New', monospace;">
+                            </div>
                         </div>
 
                         <div style="display: flex; flex-direction: column; gap: 5px;">
                             <label for="colorAccentSecondary" style="font-weight: bold;">Akzent (Cyan)</label>
-                            <input type="color" id="colorAccentSecondary" value="#00d9ff"
-                                   style="width: 100%; height: 40px; cursor: pointer; border: 1px solid var(--border); border-radius: 4px;">
+                            <div style="display: flex; gap: 8px;">
+                                <input type="color" id="colorAccentSecondary" value="#00d9ff"
+                                       style="width: 60px; height: 40px; cursor: pointer; border: 1px solid var(--border); border-radius: 4px;">
+                                <input type="text" id="hexAccentSecondary" value="#00d9ff" maxlength="7"
+                                       style="flex: 1; height: 40px; padding: 0 10px; background: var(--bg-tertiary); border: 1px solid var(--border); border-radius: 4px; color: var(--text-primary); font-family: 'Courier New', monospace;">
+                            </div>
                         </div>
 
                         <div style="display: flex; flex-direction: column; gap: 5px;">
                             <label for="colorTextPrimary" style="font-weight: bold;">Text (Primär)</label>
-                            <input type="color" id="colorTextPrimary" value="#e6e1dc"
-                                   style="width: 100%; height: 40px; cursor: pointer; border: 1px solid var(--border); border-radius: 4px;">
+                            <div style="display: flex; gap: 8px;">
+                                <input type="color" id="colorTextPrimary" value="#e6e1dc"
+                                       style="width: 60px; height: 40px; cursor: pointer; border: 1px solid var(--border); border-radius: 4px;">
+                                <input type="text" id="hexTextPrimary" value="#e6e1dc" maxlength="7"
+                                       style="flex: 1; height: 40px; padding: 0 10px; background: var(--bg-tertiary); border: 1px solid var(--border); border-radius: 4px; color: var(--text-primary); font-family: 'Courier New', monospace;">
+                            </div>
                         </div>
 
                         <div style="display: flex; flex-direction: column; gap: 5px;">
                             <label for="colorBorder" style="font-weight: bold;">Rahmen</label>
-                            <input type="color" id="colorBorder" value="#2d3748"
-                                   style="width: 100%; height: 40px; cursor: pointer; border: 1px solid var(--border); border-radius: 4px;">
+                            <div style="display: flex; gap: 8px;">
+                                <input type="color" id="colorBorder" value="#2d3748"
+                                       style="width: 60px; height: 40px; cursor: pointer; border: 1px solid var(--border); border-radius: 4px;">
+                                <input type="text" id="hexBorder" value="#2d3748" maxlength="7"
+                                       style="flex: 1; height: 40px; padding: 0 10px; background: var(--bg-tertiary); border: 1px solid var(--border); border-radius: 4px; color: var(--text-primary); font-family: 'Courier New', monospace;">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div style="margin-top: 20px; padding-top: 20px; border-top: 1px solid var(--border);">
+                        <h3 style="margin-bottom: 10px;">⚡ Schnelle Farbpaletten</h3>
+                        <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                            <button onclick="applyPreset('cyberpunk')">Cyberpunk (Standard)</button>
+                            <button onclick="applyPreset('ocean')">Ocean Blue</button>
+                            <button onclick="applyPreset('sunset')">Sunset</button>
+                            <button onclick="applyPreset('forest')">Forest</button>
+                            <button onclick="applyPreset('minimal')">Minimal Light</button>
+                            <button onclick="applyPreset('midnight')">Midnight Purple</button>
                         </div>
                     </div>
 
                     <button class="reveal-button" onclick="resetColors()" style="margin-top: 15px;">
-                        🔄 Farben zurücksetzen
+                        🔄 Auf Standard zurücksetzen
                     </button>
                 </div>
             </div>
@@ -1220,33 +1256,131 @@ Erstellt mit Claude • Interaktives Dashboard Tutorial
             '--border': '#2d3748'
         };
 
+        // Color presets
+        const colorPresets = {
+            cyberpunk: {
+                '--bg-primary': '#0a0e14',
+                '--bg-secondary': '#151a23',
+                '--accent-primary': '#39ff14',
+                '--accent-secondary': '#00d9ff',
+                '--text-primary': '#e6e1dc',
+                '--border': '#2d3748'
+            },
+            ocean: {
+                '--bg-primary': '#0a1929',
+                '--bg-secondary': '#1a2332',
+                '--accent-primary': '#00d4ff',
+                '--accent-secondary': '#0099ff',
+                '--text-primary': '#e3f2fd',
+                '--border': '#1e4976'
+            },
+            sunset: {
+                '--bg-primary': '#1a0f0f',
+                '--bg-secondary': '#2d1b1b',
+                '--accent-primary': '#ff6b35',
+                '--accent-secondary': '#f7931e',
+                '--text-primary': '#ffe5d9',
+                '--border': '#5c3030'
+            },
+            forest: {
+                '--bg-primary': '#0f1a0f',
+                '--bg-secondary': '#1a2d1a',
+                '--accent-primary': '#4ade80',
+                '--accent-secondary': '#22c55e',
+                '--text-primary': '#d4f1d4',
+                '--border': '#2d5c2d'
+            },
+            minimal: {
+                '--bg-primary': '#ffffff',
+                '--bg-secondary': '#f5f5f5',
+                '--accent-primary': '#2563eb',
+                '--accent-secondary': '#3b82f6',
+                '--text-primary': '#1f2937',
+                '--border': '#d1d5db'
+            },
+            midnight: {
+                '--bg-primary': '#0f0a1a',
+                '--bg-secondary': '#1a1329',
+                '--accent-primary': '#a855f7',
+                '--accent-secondary': '#c084fc',
+                '--text-primary': '#f3e8ff',
+                '--border': '#4c1d95'
+            }
+        };
+
         // Add event listeners to color pickers when demo section is loaded
         function initColorPickers() {
             Object.entries(colorInputs).forEach(([inputId, cssVar]) => {
-                const input = document.getElementById(inputId);
-                if (input) {
-                    input.addEventListener('input', (e) => {
-                        document.documentElement.style.setProperty(cssVar, e.target.value);
+                const colorInput = document.getElementById(inputId);
+                const hexInput = document.getElementById('hex' + inputId.replace('color', ''));
+
+                if (colorInput && hexInput) {
+                    // Color picker changes hex input
+                    colorInput.addEventListener('input', (e) => {
+                        const color = e.target.value;
+                        hexInput.value = color;
+                        document.documentElement.style.setProperty(cssVar, color);
                         showToast('🎨 Farbe geändert!');
+                    });
+
+                    // Hex input changes color picker
+                    hexInput.addEventListener('input', (e) => {
+                        let value = e.target.value.trim();
+
+                        // Add # if missing
+                        if (value && !value.startsWith('#')) {
+                            value = '#' + value;
+                        }
+
+                        // Validate hex color (3 or 6 digits)
+                        if (/^#([0-9A-Fa-f]{3}){1,2}$/.test(value)) {
+                            colorInput.value = value;
+                            document.documentElement.style.setProperty(cssVar, value);
+                        }
+                    });
+
+                    // Update on blur to fix format
+                    hexInput.addEventListener('blur', (e) => {
+                        let value = e.target.value.trim();
+                        if (!value.startsWith('#')) {
+                            value = '#' + value;
+                        }
+                        if (/^#([0-9A-Fa-f]{3}){1,2}$/.test(value)) {
+                            e.target.value = value;
+                        } else {
+                            // Reset to current color if invalid
+                            e.target.value = colorInput.value;
+                        }
                     });
                 }
             });
         }
 
-        function resetColors() {
-            Object.entries(defaultColors).forEach(([cssVar, color]) => {
+        function applyPreset(presetName) {
+            const preset = colorPresets[presetName];
+            if (!preset) return;
+
+            Object.entries(preset).forEach(([cssVar, color]) => {
                 document.documentElement.style.setProperty(cssVar, color);
             });
 
-            // Reset input values
+            // Update all input values
             Object.entries(colorInputs).forEach(([inputId, cssVar]) => {
-                const input = document.getElementById(inputId);
-                if (input) {
-                    input.value = defaultColors[cssVar];
+                const colorInput = document.getElementById(inputId);
+                const hexInput = document.getElementById('hex' + inputId.replace('color', ''));
+
+                if (colorInput && hexInput && preset[cssVar]) {
+                    colorInput.value = preset[cssVar];
+                    hexInput.value = preset[cssVar];
                 }
             });
 
-            showToast('🔄 Farben zurückgesetzt!');
+            showToast('✨ ' + presetName.charAt(0).toUpperCase() + presetName.slice(1) + ' Palette angewendet!');
+        }
+
+        function resetColors() {
+            applyPreset('cyberpunk');
+            showToast('🔄 Auf Standard zurückgesetzt!');
         }
 
         // Initialize color pickers after a short delay to ensure DOM is ready
