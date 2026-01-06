@@ -1,0 +1,1073 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Claude Tutorial // Interactive Guide</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-primary: #0a0e14;
+            --bg-secondary: #151a23;
+            --bg-tertiary: #1f2430;
+            --text-primary: #e6e1dc;
+            --text-secondary: #95a3b3;
+            --accent-primary: #39ff14;
+            --accent-secondary: #00d9ff;
+            --border: #2d3748;
+            --hover: #2a3441;
+        }
+
+        [data-theme="light"] {
+            --bg-primary: #f8f9fa;
+            --bg-secondary: #ffffff;
+            --bg-tertiary: #e9ecef;
+            --text-primary: #1a202c;
+            --text-secondary: #4a5568;
+            --accent-primary: #00a86b;
+            --accent-secondary: #0088cc;
+            --border: #cbd5e0;
+            --hover: #edf2f7;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            transition: background 0.3s, color 0.3s;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Header */
+        header {
+            background: var(--bg-secondary);
+            border-bottom: 2px solid var(--accent-primary);
+            padding: 20px;
+            margin-bottom: 30px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            font-family: 'Courier New', monospace;
+            font-size: 1.8rem;
+            color: var(--accent-primary);
+            text-shadow: 0 0 10px var(--accent-primary);
+        }
+
+        h1::before {
+            content: '> ';
+            color: var(--accent-secondary);
+        }
+
+        .controls {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+
+        button {
+            background: var(--bg-tertiary);
+            color: var(--text-primary);
+            border: 1px solid var(--border);
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            transition: all 0.2s;
+        }
+
+        button:hover {
+            background: var(--hover);
+            border-color: var(--accent-primary);
+            box-shadow: 0 0 10px rgba(57, 255, 20, 0.3);
+        }
+
+        button:active {
+            transform: scale(0.98);
+        }
+
+        /* Breadcrumbs */
+        .breadcrumbs {
+            background: var(--bg-secondary);
+            padding: 15px 20px;
+            margin-bottom: 20px;
+            border-left: 3px solid var(--accent-secondary);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            overflow-x: auto;
+        }
+
+        .breadcrumb-item {
+            color: var(--text-secondary);
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            white-space: nowrap;
+        }
+
+        .breadcrumb-item.active {
+            color: var(--accent-primary);
+            font-weight: bold;
+        }
+
+        .breadcrumb-separator {
+            color: var(--text-secondary);
+        }
+
+        /* Navigation */
+        nav {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .nav-card {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 20px;
+            cursor: pointer;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .nav-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, var(--accent-primary), var(--accent-secondary));
+            transform: scaleX(0);
+            transition: transform 0.3s;
+        }
+
+        .nav-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .nav-card:hover {
+            border-color: var(--accent-primary);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+        }
+
+        .nav-card h3 {
+            font-family: 'Courier New', monospace;
+            color: var(--accent-primary);
+            margin-bottom: 10px;
+            font-size: 1.2rem;
+        }
+
+        .nav-card h3::before {
+            content: '$ ';
+            color: var(--accent-secondary);
+        }
+
+        .nav-card p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        /* Content Section */
+        .content-section {
+            display: none;
+            animation: fadeIn 0.4s;
+        }
+
+        .content-section.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .card {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 25px;
+            margin-bottom: 20px;
+        }
+
+        .card h2 {
+            font-family: 'Courier New', monospace;
+            color: var(--accent-primary);
+            margin-bottom: 15px;
+            font-size: 1.5rem;
+        }
+
+        .card h2::before {
+            content: '// ';
+            color: var(--accent-secondary);
+        }
+
+        .card h3 {
+            color: var(--accent-secondary);
+            margin: 20px 0 10px;
+            font-size: 1.2rem;
+        }
+
+        .demo-box {
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            padding: 15px;
+            margin: 15px 0;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+        }
+
+        .demo-interactive {
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .demo-interactive:hover {
+            border-color: var(--accent-primary);
+            box-shadow: 0 0 15px rgba(57, 255, 20, 0.2);
+        }
+
+        .hidden-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease-out;
+        }
+
+        .hidden-content.revealed {
+            max-height: 500px;
+            margin-top: 15px;
+        }
+
+        .reveal-button {
+            background: var(--accent-primary);
+            color: var(--bg-primary);
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        .reveal-button:hover {
+            box-shadow: 0 0 20px var(--accent-primary);
+        }
+
+        /* Code blocks */
+        .code-block {
+            background: var(--bg-primary);
+            border: 1px solid var(--border);
+            border-left: 3px solid var(--accent-primary);
+            padding: 15px;
+            border-radius: 4px;
+            overflow-x: auto;
+            margin: 15px 0;
+            font-family: 'Courier New', monospace;
+            font-size: 0.85rem;
+            position: relative;
+        }
+
+        .code-block::before {
+            content: attr(data-label);
+            position: absolute;
+            top: -10px;
+            left: 10px;
+            background: var(--bg-secondary);
+            padding: 2px 8px;
+            font-size: 0.75rem;
+            color: var(--accent-secondary);
+            border: 1px solid var(--border);
+            border-radius: 3px;
+        }
+
+        /* Export section */
+        .export-section {
+            background: var(--bg-tertiary);
+            border: 2px dashed var(--border);
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+            text-align: center;
+        }
+
+        .export-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 15px;
+            flex-wrap: wrap;
+        }
+
+        .export-button {
+            background: var(--accent-primary);
+            color: var(--bg-primary);
+            border: none;
+            padding: 12px 24px;
+            font-weight: bold;
+        }
+
+        /* Progress indicator */
+        .progress-bar {
+            background: var(--bg-tertiary);
+            height: 4px;
+            border-radius: 2px;
+            overflow: hidden;
+            margin-bottom: 20px;
+        }
+
+        .progress-fill {
+            background: linear-gradient(90deg, var(--accent-primary), var(--accent-secondary));
+            height: 100%;
+            transition: width 0.3s;
+        }
+
+        /* Lists */
+        ul, ol {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+
+        li {
+            margin-bottom: 8px;
+            color: var(--text-secondary);
+        }
+
+        li::marker {
+            color: var(--accent-primary);
+        }
+
+        /* Back button */
+        .back-button {
+            margin-bottom: 20px;
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border);
+        }
+
+        .back-button:hover {
+            border-color: var(--accent-secondary);
+        }
+
+        /* Toast notification */
+        .toast {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: var(--accent-primary);
+            color: var(--bg-primary);
+            padding: 15px 25px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            font-weight: bold;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.3s;
+            pointer-events: none;
+            z-index: 1000;
+        }
+
+        .toast.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 1.3rem;
+            }
+
+            .header-content {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .controls {
+                width: 100%;
+                justify-content: space-between;
+            }
+
+            nav {
+                grid-template-columns: 1fr;
+            }
+
+            .breadcrumbs {
+                font-size: 0.8rem;
+            }
+
+            .export-buttons {
+                flex-direction: column;
+            }
+
+            button {
+                font-size: 0.85rem;
+                padding: 8px 12px;
+            }
+        }
+
+        /* Highlight effect */
+        .highlight {
+            background: linear-gradient(120deg, transparent 0%, var(--accent-primary) 50%, transparent 100%);
+            background-size: 200% 100%;
+            animation: highlight 2s ease-in-out infinite;
+        }
+
+        @keyframes highlight {
+            0%, 100% { background-position: 100% 0; }
+            50% { background-position: 0 0; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <h1>Claude Tutorial</h1>
+            <div class="controls">
+                <button id="themeToggle">🌓 Theme</button>
+                <button id="exportBtn">💾 Export</button>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="breadcrumbs" id="breadcrumbs">
+            <span class="breadcrumb-item active">Home</span>
+        </div>
+
+        <div class="progress-bar">
+            <div class="progress-fill" id="progressFill" style="width: 0%"></div>
+        </div>
+
+        <!-- Main Navigation -->
+        <div id="mainNav" class="content-section active">
+            <nav>
+                <div class="nav-card" data-section="claude-basics">
+                    <h3>Claude Basics</h3>
+                    <p>Was Claude kann, wichtigste Settings, wie du gute Anfragen stellst</p>
+                </div>
+                <div class="nav-card" data-section="dashboard-meta">
+                    <h3>Dieses Dashboard</h3>
+                    <p>Was du hier siehst, warum es nützlich ist, wie du selbst eins erstellst</p>
+                </div>
+                <div class="nav-card" data-section="quick-start">
+                    <h3>Sofort loslegen</h3>
+                    <p>Fertige Prompts, Checkliste, praktische Tipps</p>
+                </div>
+            </nav>
+        </div>
+
+        <!-- Section 1: Claude Basics -->
+        <div id="claude-basics" class="content-section">
+            <button class="back-button" data-back="main">← Zurück</button>
+            
+            <div class="card">
+                <h2>Was Claude kann (und nicht kann)</h2>
+                
+                <div class="demo-box demo-interactive" onclick="toggleContent('demo1')">
+                    <div>👆 <strong>KLICK MICH</strong> - Interaktive Demo</div>
+                    <div id="demo1" class="hidden-content">
+                        <h3>Claude kann:</h3>
+                        <ul>
+                            <li><strong>Texte schreiben</strong> - Emails, Berichte, Artikel</li>
+                            <li><strong>Code erstellen</strong> - Websites, Skripte, Tools</li>
+                            <li><strong>Recherchieren</strong> - Mit Web-Suche aktuelle Infos finden</li>
+                            <li><strong>Analysieren</strong> - Dokumente lesen, Daten auswerten</li>
+                            <li><strong>Erklären</strong> - Komplexe Themen einfach vermitteln</li>
+                        </ul>
+                        
+                        <h3>Claude kann NICHT:</h3>
+                        <ul>
+                            <li>❌ Deine Passwörter oder private Daten sehen (nur was du teilst)</li>
+                            <li>❌ Ins Internet ohne deine Erlaubnis (Web-Search muss aktiv sein)</li>
+                            <li>❌ Sich an alte Chats erinnern (außer du nutzt "Memory")</li>
+                            <li>❌ Dateien direkt bearbeiten (nur neue erstellen)</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2>Die 3 wichtigsten Settings</h2>
+                
+                <div class="demo-box">
+                    <h3>1. Web Search (Websuche)</h3>
+                    <p><strong>Was:</strong> Claude kann aktuelle Infos aus dem Internet holen</p>
+                    <p><strong>Wann einschalten:</strong> Für News, aktuelle Preise, Events</p>
+                    <div class="code-block" data-label="Beispiel">
+"Was kostet ein iPhone 16 aktuell?"
+→ Claude sucht automatisch aktuelle Preise</div>
+                </div>
+
+                <div class="demo-box">
+                    <h3>2. Memory (Erinnerung)</h3>
+                    <p><strong>Was:</strong> Claude merkt sich wichtige Infos über mehrere Chats</p>
+                    <p><strong>Wann einschalten:</strong> Wenn du öfter ähnliche Sachen machst</p>
+                    <div class="code-block" data-label="Beispiel">
+"Ich bin Vegetarier" → Claude merkt sich das
+Später: "Rezeptideen?" → Nur vegetarische Vorschläge</div>
+                </div>
+
+                <div class="demo-box">
+                    <h3>3. Artifacts (Interaktive Inhalte)</h3>
+                    <p><strong>Was:</strong> Claude erstellt Dokumente, Websites, Code in eigenem Fenster</p>
+                    <p><strong>Wann einschalten:</strong> Für Dashboards, Websites, interaktive Tools</p>
+                    <div class="code-block" data-label="Beispiel">
+"Erstelle mir einen Countdown-Timer"
+→ Claude baut funktionierenden Timer</div>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2>3 einfache Regeln für gute Anfragen</h2>
+                
+                <div class="demo-box">
+                    <strong>1. Sei konkret</strong><br>
+                    ❌ "Schreib was über Hunde"<br>
+                    ✅ "Schreib 5 Tipps für Ersthundebesitzer, max. 200 Wörter"
+                </div>
+
+                <div class="demo-box">
+                    <strong>2. Gib Kontext</strong><br>
+                    ❌ "Erkläre Quantenphysik"<br>
+                    ✅ "Erkläre Quantenphysik für Teenager ohne Physik-Vorkenntnisse"
+                </div>
+
+                <div class="demo-box">
+                    <strong>3. Nutze Beispiele</strong><br>
+                    ❌ "Schreib formell"<br>
+                    ✅ "Schreib wie eine offizielle Email an den Chef, z.B.: 'Sehr geehrter Herr...'"
+                </div>
+
+                <button class="reveal-button" onclick="toggleContent('expertTip')">🎯 Experten-Tipp anzeigen</button>
+                <div id="expertTip" class="hidden-content">
+                    <div class="demo-box" style="border: 2px solid var(--accent-primary);">
+                        <strong>Pro-Tipp:</strong> Du kannst Claude bitten, Fragen zu stellen!<br><br>
+                        Statt alles selbst zu erklären:<br>
+                        "Ich brauche einen Businessplan. Frag mich, was du wissen musst."<br><br>
+                        → Claude stellt gezielte Fragen und du antwortest nur kurz.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section 2: Dashboard Meta -->
+        <div id="dashboard-meta" class="content-section">
+            <button class="back-button" data-back="main">← Zurück</button>
+            
+            <div class="card">
+                <h2>Was du hier siehst</h2>
+                <p>Dieses Dashboard ist ein <strong>Single-File Artifact</strong> - eine komplette, interaktive Website in einer einzigen HTML-Datei.</p>
+                
+                <div class="demo-box">
+                    <h3>Features in diesem Dashboard:</h3>
+                    <ul>
+                        <li>✨ Dark/Light Mode (Button oben rechts)</li>
+                        <li>🗺️ Breadcrumb-Navigation (zeigt wo du bist)</li>
+                        <li>💾 Export-Funktion (Download als Markdown)</li>
+                        <li>👆 Klick-to-Reveal Demos</li>
+                        <li>📱 Responsive Design (funktioniert auf Handy/Tablet)</li>
+                        <li>🎨 Terminal-Ästhetik (nerdig aber modern)</li>
+                    </ul>
+                </div>
+
+                <div class="demo-box demo-interactive" onclick="this.style.background = 'linear-gradient(45deg, #39ff14, #00d9ff)'; setTimeout(() => this.style.background = '', 1000)">
+                    <strong>👆 KLICK MICH</strong> - Siehst du? Das ist pure HTML/CSS/JS Magic!
+                </div>
+            </div>
+
+            <div class="card">
+                <h2>Warum das nützlich ist</h2>
+                
+                <div class="demo-box">
+                    <h3>1. Alles in einer Datei</h3>
+                    <p>Keine Installation, kein Server nötig. Datei öffnen → funktioniert.</p>
+                </div>
+
+                <div class="demo-box">
+                    <h3>2. Einfach teilbar</h3>
+                    <p>Per Email versenden, auf USB-Stick, in Cloud speichern - es funktioniert überall.</p>
+                </div>
+
+                <div class="demo-box">
+                    <h3>3. Schnell erstellt</h3>
+                    <p>Mit Claude in 2-5 Minuten von Idee zu fertigem Dashboard.</p>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2>Wie du selbst eins erstellst</h2>
+                
+                <div class="code-block" data-label="Copy & Paste Vorlage">
+Erstelle mir ein interaktives Dashboard als Single-File HTML mit:
+- Thema: [DEIN THEMA]
+- Features: [z.B. Dark Mode, Export, Navigation]
+- Design: [z.B. modern, minimalistisch, terminal-style]
+- Responsive für Mobile & Desktop
+
+Beispiel Themen:
+- Projekttracker mit Fortschrittsbalken
+- Rezeptsammlung mit Suchfunktion
+- Lernkarten mit Flip-Animation
+- Finanzübersicht mit Charts</div>
+
+                <button class="reveal-button" onclick="toggleContent('stepByStep')">📋 Schritt-für-Schritt Anleitung</button>
+                <div id="stepByStep" class="hidden-content">
+                    <div class="demo-box">
+                        <h3>Schritt 1: Settings checken</h3>
+                        <p>✅ "Artifacts" einschalten in Claude Settings</p>
+                        
+                        <h3>Schritt 2: Prompt eingeben</h3>
+                        <p>Kopiere die Vorlage oben, ersetze [DEIN THEMA]</p>
+                        
+                        <h3>Schritt 3: Iterieren</h3>
+                        <p>Claude erstellt erste Version. Du sagst:</p>
+                        <ul>
+                            <li>"Mach die Buttons größer"</li>
+                            <li>"Andere Farbe für Dark Mode"</li>
+                            <li>"Füge einen Timer hinzu"</li>
+                        </ul>
+                        
+                        <h3>Schritt 4: Speichern</h3>
+                        <p>Download-Button im Artifact → Fertig!</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section 3: Quick Start -->
+        <div id="quick-start" class="content-section">
+            <button class="back-button" data-back="main">← Zurück</button>
+            
+            <div class="card">
+                <h2>Fertige Prompts zum Kopieren</h2>
+                
+                <div class="code-block" data-label="Prompt 1: Projekt-Dashboard">
+Erstelle mir ein Projekttracker-Dashboard mit:
+- Liste von Aufgaben mit Checkbox
+- Fortschrittsbalken
+- Dark Mode Toggle
+- Export als Markdown
+- Responsive für Handy
+
+Design: Modern, clean, farbige Kategorien</div>
+
+                <div class="code-block" data-label="Prompt 2: Tagesplaner">
+Erstelle einen interaktiven Tagesplaner:
+- Stundenblöcke 6-22 Uhr
+- Drag & Drop für Termine
+- Farb-Kategorien (Arbeit, Privat, Sport)
+- Timer-Funktion
+- Single-File HTML</div>
+
+                <div class="code-block" data-label="Prompt 3: Dokumenten-Generator">
+Baue einen Dokumenten-Generator:
+- Formular mit 5-6 Feldern
+- Live-Vorschau
+- Export als PDF-ready HTML
+- Verschiedene Templates wählbar
+- Professional Design</div>
+
+                <button class="reveal-button" onclick="toggleContent('morePrompts')">➕ Mehr Beispiele</button>
+                <div id="morePrompts" class="hidden-content">
+                    <div class="code-block" data-label="Prompt 4: Lernkarten-App">
+Lernkarten-System mit Flip-Animation:
+- Vorder-/Rückseite klickbar
+- Fortschritts-Tracking
+- Kategorien-Filter
+- Random-Modus
+- Mobile-optimiert</div>
+
+                    <div class="code-block" data-label="Prompt 5: Budget-Tracker">
+Budget-Tracker Dashboard:
+- Einnahmen/Ausgaben Eingabe
+- Kategorien-Aufteilung (Chart)
+- Monatsübersicht
+- Export als CSV
+- Dark Mode</div>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2>Checkliste: Alles richtig gemacht?</h2>
+                
+                <div class="demo-box">
+                    <h3>Vor dem Prompt:</h3>
+                    <ul>
+                        <li>✅ "Artifacts" in Settings aktiviert?</li>
+                        <li>✅ Weißt du, was du genau willst?</li>
+                        <li>✅ Hast du Beispiele im Kopf?</li>
+                    </ul>
+                </div>
+
+                <div class="demo-box">
+                    <h3>Im Prompt:</h3>
+                    <ul>
+                        <li>✅ Thema klar benannt?</li>
+                        <li>✅ Gewünschte Features aufgelistet?</li>
+                        <li>✅ Design-Stil erwähnt?</li>
+                        <li>✅ "Single-File HTML" explizit genannt?</li>
+                    </ul>
+                </div>
+
+                <div class="demo-box">
+                    <h3>Nach der Erstellung:</h3>
+                    <ul>
+                        <li>✅ Funktioniert alles wie gewünscht?</li>
+                        <li>✅ Responsive getestet? (Browser-Fenster verkleinern)</li>
+                        <li>✅ Alle Buttons funktionieren?</li>
+                        <li>✅ Gespeichert/heruntergeladen?</li>
+                    </ul>
+                </div>
+
+                <div class="demo-box" style="border: 2px solid var(--accent-primary);">
+                    <strong>💡 Merke:</strong> Du kannst Claude jederzeit sagen:<br>
+                    "Das ist gut, aber mach X anders"<br>
+                    "Füge noch Y hinzu"<br>
+                    "Vereinfache Z"<br><br>
+                    Iterieren ist völlig normal und gewünscht!
+                </div>
+            </div>
+
+            <div class="card">
+                <h2>Troubleshooting</h2>
+                
+                <div class="demo-box demo-interactive" onclick="toggleContent('trouble1')">
+                    <strong>👆 Problem: Artifact wird nicht erstellt</strong>
+                    <div id="trouble1" class="hidden-content">
+                        <p><strong>Lösung:</strong></p>
+                        <ul>
+                            <li>Checke Settings → "Artifacts" aktiviert?</li>
+                            <li>Sage explizit: "Erstelle als Artifact"</li>
+                            <li>Probiere: "Baue als Single-File HTML"</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="demo-box demo-interactive" onclick="toggleContent('trouble2')">
+                    <strong>👆 Problem: Funktionen funktionieren nicht</strong>
+                    <div id="trouble2" class="hidden-content">
+                        <p><strong>Lösung:</strong></p>
+                        <ul>
+                            <li>Browser-Console öffnen (F12) → Fehler?</li>
+                            <li>Claude sagen: "Der [X]-Button funktioniert nicht"</li>
+                            <li>Spezifisch beschreiben was passiert (oder nicht passiert)</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="demo-box demo-interactive" onclick="toggleContent('trouble3')">
+                    <strong>👆 Problem: Design gefällt nicht</strong>
+                    <div id="trouble3" class="hidden-content">
+                        <p><strong>Lösung:</strong></p>
+                        <ul>
+                            <li>"Mach es minimalistischer/bunter/professioneller"</li>
+                            <li>"Nutze andere Farben: [z.B. blau und grau]"</li>
+                            <li>"Orientiere dich an [Beispiel-Website]"</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Export Section -->
+        <div class="export-section">
+            <h3>📦 Export dieses Tutorials</h3>
+            <p>Speichere den Inhalt als Markdown-Datei für später</p>
+            <div class="export-buttons">
+                <button class="export-button" onclick="exportMarkdown()">💾 Download .md</button>
+                <button class="export-button" onclick="copyMarkdown()">📋 Copy to Clipboard</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="toast" id="toast"></div>
+
+    <script>
+        // State management
+        let currentSection = 'main';
+        const visitedSections = new Set(['main']);
+
+        // Theme toggle
+        const themeToggle = document.getElementById('themeToggle');
+        const savedTheme = localStorage.getItem('theme') || 'dark';
+        document.documentElement.setAttribute('data-theme', savedTheme);
+
+        themeToggle.addEventListener('click', () => {
+            const current = document.documentElement.getAttribute('data-theme');
+            const next = current === 'dark' ? 'light' : 'dark';
+            document.documentElement.setAttribute('data-theme', next);
+            localStorage.setItem('theme', next);
+            showToast(next === 'dark' ? '🌙 Dark Mode' : '☀️ Light Mode');
+        });
+
+        // Navigation
+        document.querySelectorAll('.nav-card').forEach(card => {
+            card.addEventListener('click', () => {
+                const section = card.getAttribute('data-section');
+                navigateTo(section);
+            });
+        });
+
+        document.querySelectorAll('.back-button').forEach(btn => {
+            btn.addEventListener('click', () => {
+                navigateTo('main');
+            });
+        });
+
+        function navigateTo(section) {
+            // Hide all sections
+            document.querySelectorAll('.content-section').forEach(s => {
+                s.classList.remove('active');
+            });
+
+            // Show target section
+            const target = section === 'main' ? 'mainNav' : section;
+            document.getElementById(target).classList.add('active');
+
+            // Update breadcrumbs
+            updateBreadcrumbs(section);
+
+            // Track progress
+            visitedSections.add(section);
+            updateProgress();
+
+            // Scroll to top
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+
+            currentSection = section;
+        }
+
+        function updateBreadcrumbs(section) {
+            const breadcrumbs = document.getElementById('breadcrumbs');
+            const names = {
+                'main': 'Home',
+                'claude-basics': 'Claude Basics',
+                'dashboard-meta': 'Dieses Dashboard',
+                'quick-start': 'Sofort loslegen'
+            };
+
+            if (section === 'main') {
+                breadcrumbs.innerHTML = '<span class="breadcrumb-item active">Home</span>';
+            } else {
+                breadcrumbs.innerHTML = `
+                    <span class="breadcrumb-item" style="cursor: pointer;" onclick="navigateTo('main')">Home</span>
+                    <span class="breadcrumb-separator">/</span>
+                    <span class="breadcrumb-item active">${names[section]}</span>
+                `;
+            }
+        }
+
+        function updateProgress() {
+            const total = 4; // main + 3 sections
+            const visited = visitedSections.size;
+            const percent = (visited / total) * 100;
+            document.getElementById('progressFill').style.width = percent + '%';
+        }
+
+        // Toggle content
+        function toggleContent(id) {
+            const content = document.getElementById(id);
+            content.classList.toggle('revealed');
+        }
+
+        // Toast notification
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.classList.add('show');
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 2000);
+        }
+
+        // Export functions
+        function generateMarkdown() {
+            return `# Claude Tutorial - Interaktive Anleitung
+
+## 1. Claude Basics
+
+### Was Claude kann:
+- Texte schreiben (Emails, Berichte, Artikel)
+- Code erstellen (Websites, Skripte, Tools)
+- Recherchieren (mit Web-Suche aktuelle Infos)
+- Analysieren (Dokumente, Daten)
+- Erklären (komplexe Themen einfach)
+
+### Was Claude NICHT kann:
+- ❌ Passwörter/private Daten sehen
+- ❌ Ohne Erlaubnis ins Internet
+- ❌ Alte Chats ohne "Memory"
+- ❌ Dateien direkt bearbeiten
+
+### Die 3 wichtigsten Settings:
+
+1. **Web Search**: Aktuelle Infos aus dem Internet
+2. **Memory**: Merkt sich wichtige Infos über Chats
+3. **Artifacts**: Erstellt interaktive Inhalte/Dokumente
+
+### 3 Regeln für gute Anfragen:
+
+1. **Sei konkret**: "5 Tipps für Ersthundebesitzer, 200 Wörter"
+2. **Gib Kontext**: "Erkläre für Teenager ohne Vorkenntnisse"
+3. **Nutze Beispiele**: "Wie eine Email: 'Sehr geehrter...'"
+
+---
+
+## 2. Dieses Dashboard
+
+### Was ist das?
+Single-File Artifact - komplette Website in einer HTML-Datei
+
+### Features:
+- ✨ Dark/Light Mode
+- 🗺️ Breadcrumb-Navigation
+- 💾 Export-Funktion
+- 👆 Interaktive Demos
+- 📱 Responsive Design
+- 🎨 Terminal-Ästhetik
+
+### Warum nützlich?
+1. **Alles in einer Datei** - keine Installation nötig
+2. **Einfach teilbar** - Email, USB, Cloud
+3. **Schnell erstellt** - 2-5 Minuten mit Claude
+
+### Selbst erstellen:
+
+\`\`\`
+Erstelle mir ein interaktives Dashboard als Single-File HTML mit:
+- Thema: [DEIN THEMA]
+- Features: [Dark Mode, Export, Navigation]
+- Design: [modern/minimalistisch/terminal]
+- Responsive für Mobile & Desktop
+\`\`\`
+
+---
+
+## 3. Sofort loslegen
+
+### Fertige Prompts:
+
+**Projekt-Tracker:**
+\`\`\`
+Erstelle Projekttracker mit Checkboxen, Fortschrittsbalken,
+Dark Mode, Markdown-Export, responsive
+\`\`\`
+
+**Tagesplaner:**
+\`\`\`
+Interaktiver Planer: 6-22 Uhr, Drag & Drop,
+Farb-Kategorien, Timer, Single-File HTML
+\`\`\`
+
+**Lernkarten:**
+\`\`\`
+Lernkarten mit Flip-Animation, Progress-Tracking,
+Kategorien-Filter, Random-Modus, mobile-optimiert
+\`\`\`
+
+### Checkliste:
+
+**Vor dem Prompt:**
+- ✅ Artifacts aktiviert?
+- ✅ Ziel klar?
+- ✅ Beispiele im Kopf?
+
+**Im Prompt:**
+- ✅ Thema benannt
+- ✅ Features gelistet
+- ✅ Design-Stil erwähnt
+- ✅ "Single-File HTML" genannt
+
+**Nach Erstellung:**
+- ✅ Funktioniert alles?
+- ✅ Responsive getestet?
+- ✅ Gespeichert?
+
+### Troubleshooting:
+
+**Artifact wird nicht erstellt:**
+- Settings → "Artifacts" aktiviert?
+- Sage: "Erstelle als Artifact"
+
+**Funktionen funktionieren nicht:**
+- Browser-Console (F12) checken
+- Spezifisch beschreiben was nicht geht
+
+**Design gefällt nicht:**
+- "Mach minimalistischer/bunter"
+- "Nutze andere Farben: [blau, grau]"
+
+---
+
+💡 **Pro-Tipp:** Claude kann nachfragen stellen!
+"Ich brauche X. Frag mich was du wissen musst."
+
+---
+
+Erstellt mit Claude • Interaktives Dashboard Tutorial
+`;
+        }
+
+        function exportMarkdown() {
+            const markdown = generateMarkdown();
+            const blob = new Blob([markdown], { type: 'text/markdown' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'claude-tutorial.md';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+            showToast('💾 Download gestartet!');
+        }
+
+        function copyMarkdown() {
+            const markdown = generateMarkdown();
+            navigator.clipboard.writeText(markdown).then(() => {
+                showToast('📋 Kopiert!');
+            }).catch(() => {
+                showToast('❌ Fehler beim Kopieren');
+            });
+        }
+
+        // Initialize
+        updateProgress();
+    </script>
+</body>
+</html>
