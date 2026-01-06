@@ -487,6 +487,10 @@
                     <h3>Sofort loslegen</h3>
                     <p>Fertige Prompts, Checkliste, praktische Tipps</p>
                 </div>
+                <div class="nav-card" data-section="demo">
+                    <h3>Demo & Playground</h3>
+                    <p>Alle Elemente live testen, Farben anpassen, Design experimentieren</p>
+                </div>
             </nav>
         </div>
 
@@ -803,6 +807,136 @@ Budget-Tracker Dashboard:
             </div>
         </div>
 
+        <!-- Section 4: Demo & Playground -->
+        <div id="demo" class="content-section">
+            <button class="back-button" data-back="main">← Zurück</button>
+
+            <div class="card">
+                <h2>Design Playground</h2>
+                <p>Experimentiere mit den Farben und sieh dir die Änderungen live an. Alle Änderungen werden nur für diese Session gespeichert.</p>
+
+                <div class="demo-box" style="margin-top: 20px;">
+                    <h3>🎨 Farbpalette anpassen</h3>
+                    <p style="margin-bottom: 15px;">Klicke auf die Farben, um sie zu ändern:</p>
+
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px;">
+                        <div style="display: flex; flex-direction: column; gap: 5px;">
+                            <label for="colorBgPrimary" style="font-weight: bold;">Hintergrund (Primär)</label>
+                            <input type="color" id="colorBgPrimary" value="#0a0e14"
+                                   style="width: 100%; height: 40px; cursor: pointer; border: 1px solid var(--border); border-radius: 4px;">
+                        </div>
+
+                        <div style="display: flex; flex-direction: column; gap: 5px;">
+                            <label for="colorBgSecondary" style="font-weight: bold;">Hintergrund (Cards)</label>
+                            <input type="color" id="colorBgSecondary" value="#151a23"
+                                   style="width: 100%; height: 40px; cursor: pointer; border: 1px solid var(--border); border-radius: 4px;">
+                        </div>
+
+                        <div style="display: flex; flex-direction: column; gap: 5px;">
+                            <label for="colorAccentPrimary" style="font-weight: bold;">Akzent (Neon)</label>
+                            <input type="color" id="colorAccentPrimary" value="#39ff14"
+                                   style="width: 100%; height: 40px; cursor: pointer; border: 1px solid var(--border); border-radius: 4px;">
+                        </div>
+
+                        <div style="display: flex; flex-direction: column; gap: 5px;">
+                            <label for="colorAccentSecondary" style="font-weight: bold;">Akzent (Cyan)</label>
+                            <input type="color" id="colorAccentSecondary" value="#00d9ff"
+                                   style="width: 100%; height: 40px; cursor: pointer; border: 1px solid var(--border); border-radius: 4px;">
+                        </div>
+
+                        <div style="display: flex; flex-direction: column; gap: 5px;">
+                            <label for="colorTextPrimary" style="font-weight: bold;">Text (Primär)</label>
+                            <input type="color" id="colorTextPrimary" value="#e6e1dc"
+                                   style="width: 100%; height: 40px; cursor: pointer; border: 1px solid var(--border); border-radius: 4px;">
+                        </div>
+
+                        <div style="display: flex; flex-direction: column; gap: 5px;">
+                            <label for="colorBorder" style="font-weight: bold;">Rahmen</label>
+                            <input type="color" id="colorBorder" value="#2d3748"
+                                   style="width: 100%; height: 40px; cursor: pointer; border: 1px solid var(--border); border-radius: 4px;">
+                        </div>
+                    </div>
+
+                    <button class="reveal-button" onclick="resetColors()" style="margin-top: 15px;">
+                        🔄 Farben zurücksetzen
+                    </button>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2>Element-Showcase</h2>
+                <p>Hier siehst du alle wichtigen UI-Elemente in Aktion:</p>
+
+                <h3>Buttons</h3>
+                <div style="display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 20px;">
+                    <button>Standard Button</button>
+                    <button class="reveal-button">Action Button</button>
+                    <button class="export-button">Export Button</button>
+                    <button class="back-button">Back Button</button>
+                </div>
+
+                <h3>Demo Box (Interaktiv)</h3>
+                <div class="demo-box demo-interactive" onclick="showToast('✨ Demo Box geklickt!')" style="margin-bottom: 20px;">
+                    <strong>👆 KLICK MICH</strong> - Interaktive Demo Box mit Hover-Effekt
+                </div>
+
+                <h3>Code Block mit Label</h3>
+                <div class="code-block" data-label="Beispiel Code">
+console.log('Hello World!');
+const greeting = 'Willkommen im Playground';
+// Dies ist ein Test-Code-Block</div>
+
+                <h3>Versteckter Content</h3>
+                <button class="reveal-button" onclick="toggleContent('demoHidden')">🎯 Content anzeigen/verstecken</button>
+                <div id="demoHidden" class="hidden-content">
+                    <div class="demo-box" style="border: 2px solid var(--accent-primary); margin-top: 15px;">
+                        <strong>Versteckter Content!</strong><br>
+                        Dieser Inhalt wird mit einer smooth Animation ein- und ausgeblendet.
+                    </div>
+                </div>
+
+                <h3 style="margin-top: 25px;">Toast Notifications</h3>
+                <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                    <button onclick="showToast('✅ Erfolg!')">Erfolg Toast</button>
+                    <button onclick="showToast('⚠️ Warnung!')">Warnung Toast</button>
+                    <button onclick="showToast('💡 Info!')">Info Toast</button>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2>Grid Layout Test</h2>
+                <p>So sieht das responsive Grid-System aus:</p>
+
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-top: 15px;">
+                    <div class="demo-box" style="text-align: center; padding: 30px;">Box 1</div>
+                    <div class="demo-box" style="text-align: center; padding: 30px;">Box 2</div>
+                    <div class="demo-box" style="text-align: center; padding: 30px;">Box 3</div>
+                    <div class="demo-box" style="text-align: center; padding: 30px;">Box 4</div>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2>Typografie</h2>
+
+                <h3>Überschriften</h3>
+                <h1 style="margin: 10px 0;">H1 - Haupttitel</h1>
+                <h2 style="margin: 10px 0;">H2 - Section Titel</h2>
+                <h3 style="margin: 10px 0;">H3 - Untertitel</h3>
+
+                <h3 style="margin-top: 25px;">Text-Stile</h3>
+                <p style="color: var(--text-primary);">Primärer Text - Dies ist der Haupttext-Stil</p>
+                <p style="color: var(--text-secondary);">Sekundärer Text - Für weniger wichtige Infos</p>
+                <p style="font-family: 'Courier New', monospace;">Monospace Text - Für Code und Terminal</p>
+
+                <h3 style="margin-top: 25px;">Listen</h3>
+                <ul>
+                    <li>Erstes Listen-Element</li>
+                    <li>Zweites Listen-Element</li>
+                    <li>Drittes Listen-Element</li>
+                </ul>
+            </div>
+        </div>
+
         <!-- Export Section -->
         <div class="export-section">
             <h3>📦 Export dieses Tutorials</h3>
@@ -877,7 +1011,8 @@ Budget-Tracker Dashboard:
                 'main': 'Home',
                 'claude-basics': 'Claude Basics',
                 'dashboard-meta': 'Dieses Dashboard',
-                'quick-start': 'Sofort loslegen'
+                'quick-start': 'Sofort loslegen',
+                'demo': 'Demo & Playground'
             };
 
             if (section === 'main') {
@@ -892,7 +1027,7 @@ Budget-Tracker Dashboard:
         }
 
         function updateProgress() {
-            const total = 4; // main + 3 sections
+            const total = 5; // main + 4 sections
             const visited = visitedSections.size;
             const percent = (visited / total) * 100;
             document.getElementById('progressFill').style.width = percent + '%';
@@ -1064,6 +1199,58 @@ Erstellt mit Claude • Interaktives Dashboard Tutorial
                 showToast('❌ Fehler beim Kopieren');
             });
         }
+
+        // Color picker functionality
+        const colorInputs = {
+            'colorBgPrimary': '--bg-primary',
+            'colorBgSecondary': '--bg-secondary',
+            'colorAccentPrimary': '--accent-primary',
+            'colorAccentSecondary': '--accent-secondary',
+            'colorTextPrimary': '--text-primary',
+            'colorBorder': '--border'
+        };
+
+        // Default colors for reset
+        const defaultColors = {
+            '--bg-primary': '#0a0e14',
+            '--bg-secondary': '#151a23',
+            '--accent-primary': '#39ff14',
+            '--accent-secondary': '#00d9ff',
+            '--text-primary': '#e6e1dc',
+            '--border': '#2d3748'
+        };
+
+        // Add event listeners to color pickers when demo section is loaded
+        function initColorPickers() {
+            Object.entries(colorInputs).forEach(([inputId, cssVar]) => {
+                const input = document.getElementById(inputId);
+                if (input) {
+                    input.addEventListener('input', (e) => {
+                        document.documentElement.style.setProperty(cssVar, e.target.value);
+                        showToast('🎨 Farbe geändert!');
+                    });
+                }
+            });
+        }
+
+        function resetColors() {
+            Object.entries(defaultColors).forEach(([cssVar, color]) => {
+                document.documentElement.style.setProperty(cssVar, color);
+            });
+
+            // Reset input values
+            Object.entries(colorInputs).forEach(([inputId, cssVar]) => {
+                const input = document.getElementById(inputId);
+                if (input) {
+                    input.value = defaultColors[cssVar];
+                }
+            });
+
+            showToast('🔄 Farben zurückgesetzt!');
+        }
+
+        // Initialize color pickers after a short delay to ensure DOM is ready
+        setTimeout(initColorPickers, 100);
 
         // Initialize
         updateProgress();
