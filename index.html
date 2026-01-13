@@ -293,7 +293,7 @@
             background: var(--bg-primary);
             border: 1px solid var(--border);
             border-left: 3px solid var(--accent-primary);
-            padding: 15px;
+            padding: 30px 15px 15px 15px;
             border-radius: 4px;
             overflow-x: auto;
             margin: 15px 0;
@@ -305,14 +305,13 @@
         .code-block::before {
             content: attr(data-label);
             position: absolute;
-            top: -10px;
-            left: 10px;
-            background: var(--bg-secondary);
-            padding: 2px 8px;
+            top: 8px;
+            left: 15px;
             font-size: 0.75rem;
             color: var(--accent-secondary);
-            border: 1px solid var(--border);
-            border-radius: 3px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
 
         /* Export section */
@@ -487,6 +486,10 @@
                 <div class="nav-card" data-section="quick-start">
                     <h3>Sofort loslegen</h3>
                     <p>Fertige Prompts, Checkliste, praktische Tipps</p>
+                </div>
+                <div class="nav-card" data-section="demo">
+                    <h3>Demo & Playground</h3>
+                    <p>Alle Elemente live testen, Farben anpassen, Design experimentieren</p>
                 </div>
             </nav>
         </div>
@@ -804,6 +807,232 @@ Budget-Tracker Dashboard:
             </div>
         </div>
 
+        <!-- Section 4: Demo & Playground -->
+        <div id="demo" class="content-section">
+            <button class="back-button" data-back="main">← Zurück</button>
+
+            <div class="card">
+                <h2>Design Playground</h2>
+                <p>Experimentiere mit den Farben und sieh dir die Änderungen live an. Alle Änderungen werden nur für diese Session gespeichert.</p>
+
+                <div class="demo-box" style="margin-top: 20px;">
+                    <h3>🎨 Farbpalette anpassen</h3>
+                    <p style="margin-bottom: 15px;">Stelle die Farben mit den Schiebereglern ein - ganz intuitiv:</p>
+
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px;">
+                        <!-- Hintergrund Primär -->
+                        <div style="border: 1px solid var(--border); border-radius: 8px; padding: 15px; background: var(--bg-tertiary);">
+                            <label style="font-weight: bold; display: block; margin-bottom: 10px;">Hintergrund (Primär)</label>
+                            <div id="previewBgPrimary" style="width: 100%; height: 60px; border-radius: 4px; border: 1px solid var(--border); margin-bottom: 10px; background: #0a0e14;"></div>
+                            <div style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 10px;" id="nameBgPrimary">Sehr dunkles Blau</div>
+
+                            <div style="margin-bottom: 8px;">
+                                <label style="font-size: 0.85rem;">Farbton (Welche Farbe?)</label>
+                                <input type="range" id="hueBgPrimary" min="0" max="360" value="210" style="width: 100%;">
+                            </div>
+                            <div style="margin-bottom: 8px;">
+                                <label style="font-size: 0.85rem;">Sättigung (Wie kräftig?)</label>
+                                <input type="range" id="satBgPrimary" min="0" max="100" value="20" style="width: 100%;">
+                            </div>
+                            <div>
+                                <label style="font-size: 0.85rem;">Helligkeit (Wie hell?)</label>
+                                <input type="range" id="lightBgPrimary" min="0" max="100" value="5" style="width: 100%;">
+                            </div>
+                        </div>
+
+                        <!-- Hintergrund Cards -->
+                        <div style="border: 1px solid var(--border); border-radius: 8px; padding: 15px; background: var(--bg-tertiary);">
+                            <label style="font-weight: bold; display: block; margin-bottom: 10px;">Hintergrund (Cards)</label>
+                            <div id="previewBgSecondary" style="width: 100%; height: 60px; border-radius: 4px; border: 1px solid var(--border); margin-bottom: 10px; background: #151a23;"></div>
+                            <div style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 10px;" id="nameBgSecondary">Dunkles Blau</div>
+
+                            <div style="margin-bottom: 8px;">
+                                <label style="font-size: 0.85rem;">Farbton</label>
+                                <input type="range" id="hueBgSecondary" min="0" max="360" value="215" style="width: 100%;">
+                            </div>
+                            <div style="margin-bottom: 8px;">
+                                <label style="font-size: 0.85rem;">Sättigung</label>
+                                <input type="range" id="satBgSecondary" min="0" max="100" value="25" style="width: 100%;">
+                            </div>
+                            <div>
+                                <label style="font-size: 0.85rem;">Helligkeit</label>
+                                <input type="range" id="lightBgSecondary" min="0" max="100" value="11" style="width: 100%;">
+                            </div>
+                        </div>
+
+                        <!-- Akzent Primär -->
+                        <div style="border: 1px solid var(--border); border-radius: 8px; padding: 15px; background: var(--bg-tertiary);">
+                            <label style="font-weight: bold; display: block; margin-bottom: 10px;">Akzent (Neon)</label>
+                            <div id="previewAccentPrimary" style="width: 100%; height: 60px; border-radius: 4px; border: 1px solid var(--border); margin-bottom: 10px; background: #39ff14;"></div>
+                            <div style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 10px;" id="nameAccentPrimary">Leuchtendes Grün</div>
+
+                            <div style="margin-bottom: 8px;">
+                                <label style="font-size: 0.85rem;">Farbton</label>
+                                <input type="range" id="hueAccentPrimary" min="0" max="360" value="105" style="width: 100%;">
+                            </div>
+                            <div style="margin-bottom: 8px;">
+                                <label style="font-size: 0.85rem;">Sättigung</label>
+                                <input type="range" id="satAccentPrimary" min="0" max="100" value="100" style="width: 100%;">
+                            </div>
+                            <div>
+                                <label style="font-size: 0.85rem;">Helligkeit</label>
+                                <input type="range" id="lightAccentPrimary" min="0" max="100" value="54" style="width: 100%;">
+                            </div>
+                        </div>
+
+                        <!-- Akzent Sekundär -->
+                        <div style="border: 1px solid var(--border); border-radius: 8px; padding: 15px; background: var(--bg-tertiary);">
+                            <label style="font-weight: bold; display: block; margin-bottom: 10px;">Akzent (Cyan)</label>
+                            <div id="previewAccentSecondary" style="width: 100%; height: 60px; border-radius: 4px; border: 1px solid var(--border); margin-bottom: 10px; background: #00d9ff;"></div>
+                            <div style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 10px;" id="nameAccentSecondary">Helles Cyan</div>
+
+                            <div style="margin-bottom: 8px;">
+                                <label style="font-size: 0.85rem;">Farbton</label>
+                                <input type="range" id="hueAccentSecondary" min="0" max="360" value="190" style="width: 100%;">
+                            </div>
+                            <div style="margin-bottom: 8px;">
+                                <label style="font-size: 0.85rem;">Sättigung</label>
+                                <input type="range" id="satAccentSecondary" min="0" max="100" value="100" style="width: 100%;">
+                            </div>
+                            <div>
+                                <label style="font-size: 0.85rem;">Helligkeit</label>
+                                <input type="range" id="lightAccentSecondary" min="0" max="100" value="50" style="width: 100%;">
+                            </div>
+                        </div>
+
+                        <!-- Text Primär -->
+                        <div style="border: 1px solid var(--border); border-radius: 8px; padding: 15px; background: var(--bg-tertiary);">
+                            <label style="font-weight: bold; display: block; margin-bottom: 10px;">Text (Primär)</label>
+                            <div id="previewTextPrimary" style="width: 100%; height: 60px; border-radius: 4px; border: 1px solid var(--border); margin-bottom: 10px; background: #e6e1dc;"></div>
+                            <div style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 10px;" id="nameTextPrimary">Sehr helles Beige</div>
+
+                            <div style="margin-bottom: 8px;">
+                                <label style="font-size: 0.85rem;">Farbton</label>
+                                <input type="range" id="hueTextPrimary" min="0" max="360" value="30" style="width: 100%;">
+                            </div>
+                            <div style="margin-bottom: 8px;">
+                                <label style="font-size: 0.85rem;">Sättigung</label>
+                                <input type="range" id="satTextPrimary" min="0" max="100" value="15" style="width: 100%;">
+                            </div>
+                            <div>
+                                <label style="font-size: 0.85rem;">Helligkeit</label>
+                                <input type="range" id="lightTextPrimary" min="0" max="100" value="89" style="width: 100%;">
+                            </div>
+                        </div>
+
+                        <!-- Rahmen -->
+                        <div style="border: 1px solid var(--border); border-radius: 8px; padding: 15px; background: var(--bg-tertiary);">
+                            <label style="font-weight: bold; display: block; margin-bottom: 10px;">Rahmen</label>
+                            <div id="previewBorder" style="width: 100%; height: 60px; border-radius: 4px; border: 1px solid var(--border); margin-bottom: 10px; background: #2d3748;"></div>
+                            <div style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 10px;" id="nameBorder">Dunkles Grau</div>
+
+                            <div style="margin-bottom: 8px;">
+                                <label style="font-size: 0.85rem;">Farbton</label>
+                                <input type="range" id="hueBorder" min="0" max="360" value="210" style="width: 100%;">
+                            </div>
+                            <div style="margin-bottom: 8px;">
+                                <label style="font-size: 0.85rem;">Sättigung</label>
+                                <input type="range" id="satBorder" min="0" max="100" value="15" style="width: 100%;">
+                            </div>
+                            <div>
+                                <label style="font-size: 0.85rem;">Helligkeit</label>
+                                <input type="range" id="lightBorder" min="0" max="100" value="23" style="width: 100%;">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div style="margin-top: 20px; padding-top: 20px; border-top: 1px solid var(--border);">
+                        <h3 style="margin-bottom: 10px;">⚡ Schnelle Farbpaletten</h3>
+                        <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                            <button onclick="applyPreset('cyberpunk')">Cyberpunk (Standard)</button>
+                            <button onclick="applyPreset('ocean')">Ocean Blue</button>
+                            <button onclick="applyPreset('sunset')">Sunset</button>
+                            <button onclick="applyPreset('forest')">Forest</button>
+                            <button onclick="applyPreset('minimal')">Minimal Light</button>
+                            <button onclick="applyPreset('midnight')">Midnight Purple</button>
+                        </div>
+                    </div>
+
+                    <button class="reveal-button" onclick="resetColors()" style="margin-top: 15px;">
+                        🔄 Auf Standard zurücksetzen
+                    </button>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2>Element-Showcase</h2>
+                <p>Hier siehst du alle wichtigen UI-Elemente in Aktion:</p>
+
+                <h3>Buttons</h3>
+                <div style="display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 20px;">
+                    <button>Standard Button</button>
+                    <button class="reveal-button">Action Button</button>
+                    <button class="export-button">Export Button</button>
+                    <button class="back-button">Back Button</button>
+                </div>
+
+                <h3>Demo Box (Interaktiv)</h3>
+                <div class="demo-box demo-interactive" onclick="showToast('✨ Demo Box geklickt!')" style="margin-bottom: 20px;">
+                    <strong>👆 KLICK MICH</strong> - Interaktive Demo Box mit Hover-Effekt
+                </div>
+
+                <h3>Code Block mit Label</h3>
+                <div class="code-block" data-label="Beispiel Code">
+console.log('Hello World!');
+const greeting = 'Willkommen im Playground';
+// Dies ist ein Test-Code-Block</div>
+
+                <h3>Versteckter Content</h3>
+                <button class="reveal-button" onclick="toggleContent('demoHidden')">🎯 Content anzeigen/verstecken</button>
+                <div id="demoHidden" class="hidden-content">
+                    <div class="demo-box" style="border: 2px solid var(--accent-primary); margin-top: 15px;">
+                        <strong>Versteckter Content!</strong><br>
+                        Dieser Inhalt wird mit einer smooth Animation ein- und ausgeblendet.
+                    </div>
+                </div>
+
+                <h3 style="margin-top: 25px;">Toast Notifications</h3>
+                <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                    <button onclick="showToast('✅ Erfolg!')">Erfolg Toast</button>
+                    <button onclick="showToast('⚠️ Warnung!')">Warnung Toast</button>
+                    <button onclick="showToast('💡 Info!')">Info Toast</button>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2>Grid Layout Test</h2>
+                <p>So sieht das responsive Grid-System aus:</p>
+
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-top: 15px;">
+                    <div class="demo-box" style="text-align: center; padding: 30px;">Box 1</div>
+                    <div class="demo-box" style="text-align: center; padding: 30px;">Box 2</div>
+                    <div class="demo-box" style="text-align: center; padding: 30px;">Box 3</div>
+                    <div class="demo-box" style="text-align: center; padding: 30px;">Box 4</div>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2>Typografie</h2>
+
+                <h3>Überschriften</h3>
+                <h1 style="margin: 10px 0;">H1 - Haupttitel</h1>
+                <h2 style="margin: 10px 0;">H2 - Section Titel</h2>
+                <h3 style="margin: 10px 0;">H3 - Untertitel</h3>
+
+                <h3 style="margin-top: 25px;">Text-Stile</h3>
+                <p style="color: var(--text-primary);">Primärer Text - Dies ist der Haupttext-Stil</p>
+                <p style="color: var(--text-secondary);">Sekundärer Text - Für weniger wichtige Infos</p>
+                <p style="font-family: 'Courier New', monospace;">Monospace Text - Für Code und Terminal</p>
+
+                <h3 style="margin-top: 25px;">Listen</h3>
+                <ul>
+                    <li>Erstes Listen-Element</li>
+                    <li>Zweites Listen-Element</li>
+                    <li>Drittes Listen-Element</li>
+                </ul>
+            </div>
+        </div>
+
         <!-- Export Section -->
         <div class="export-section">
             <h3>📦 Export dieses Tutorials</h3>
@@ -878,7 +1107,8 @@ Budget-Tracker Dashboard:
                 'main': 'Home',
                 'claude-basics': 'Claude Basics',
                 'dashboard-meta': 'Dieses Dashboard',
-                'quick-start': 'Sofort loslegen'
+                'quick-start': 'Sofort loslegen',
+                'demo': 'Demo & Playground'
             };
 
             if (section === 'main') {
@@ -893,7 +1123,7 @@ Budget-Tracker Dashboard:
         }
 
         function updateProgress() {
-            const total = 4; // main + 3 sections
+            const total = 5; // main + 4 sections
             const visited = visitedSections.size;
             const percent = (visited / total) * 100;
             document.getElementById('progressFill').style.width = percent + '%';
@@ -1065,6 +1295,204 @@ Erstellt mit Claude • Interaktives Dashboard Tutorial
                 showToast('❌ Fehler beim Kopieren');
             });
         }
+
+        // Color picker functionality with HSL
+        const colorElements = {
+            'BgPrimary': { cssVar: '--bg-primary', default: {h: 210, s: 20, l: 5} },
+            'BgSecondary': { cssVar: '--bg-secondary', default: {h: 215, s: 25, l: 11} },
+            'AccentPrimary': { cssVar: '--accent-primary', default: {h: 105, s: 100, l: 54} },
+            'AccentSecondary': { cssVar: '--accent-secondary', default: {h: 190, s: 100, l: 50} },
+            'TextPrimary': { cssVar: '--text-primary', default: {h: 30, s: 15, l: 89} },
+            'Border': { cssVar: '--border', default: {h: 210, s: 15, l: 23} }
+        };
+
+        // HSL to HEX conversion
+        function hslToHex(h, s, l) {
+            s /= 100;
+            l /= 100;
+            const c = (1 - Math.abs(2 * l - 1)) * s;
+            const x = c * (1 - Math.abs((h / 60) % 2 - 1));
+            const m = l - c / 2;
+            let r = 0, g = 0, b = 0;
+
+            if (0 <= h && h < 60) {
+                r = c; g = x; b = 0;
+            } else if (60 <= h && h < 120) {
+                r = x; g = c; b = 0;
+            } else if (120 <= h && h < 180) {
+                r = 0; g = c; b = x;
+            } else if (180 <= h && h < 240) {
+                r = 0; g = x; b = c;
+            } else if (240 <= h && h < 300) {
+                r = x; g = 0; b = c;
+            } else if (300 <= h && h < 360) {
+                r = c; g = 0; b = x;
+            }
+
+            const toHex = (val) => {
+                const hex = Math.round((val + m) * 255).toString(16);
+                return hex.length === 1 ? '0' + hex : hex;
+            };
+
+            return `#${toHex(r)}${toHex(g)}${toHex(b)}`;
+        }
+
+        // Generate color name from HSL
+        function getColorName(h, s, l) {
+            // Brightness descriptors
+            let brightness = '';
+            if (l < 15) brightness = 'Sehr dunkles';
+            else if (l < 30) brightness = 'Dunkles';
+            else if (l < 50) brightness = 'Mittleres';
+            else if (l < 70) brightness = 'Helles';
+            else brightness = 'Sehr helles';
+
+            // Saturation adjustment
+            if (s < 10) {
+                if (l < 30) return 'Schwarz';
+                if (l > 70) return 'Weiß';
+                return brightness + ' Grau';
+            }
+
+            // Hue names
+            let hue = '';
+            if (h < 15 || h >= 345) hue = 'Rot';
+            else if (h < 45) hue = 'Orange';
+            else if (h < 70) hue = 'Gelb';
+            else if (h < 150) hue = 'Grün';
+            else if (h < 200) hue = 'Cyan';
+            else if (h < 260) hue = 'Blau';
+            else if (h < 290) hue = 'Violett';
+            else hue = 'Magenta';
+
+            if (s < 30) return brightness + ' ' + hue.toLowerCase();
+            return brightness + ' ' + hue.toLowerCase();
+        }
+
+        // Update color when sliders change
+        function updateColor(elementKey) {
+            const hueSlider = document.getElementById(`hue${elementKey}`);
+            const satSlider = document.getElementById(`sat${elementKey}`);
+            const lightSlider = document.getElementById(`light${elementKey}`);
+            const preview = document.getElementById(`preview${elementKey}`);
+            const nameDisplay = document.getElementById(`name${elementKey}`);
+
+            if (!hueSlider || !satSlider || !lightSlider) return;
+
+            const h = parseInt(hueSlider.value);
+            const s = parseInt(satSlider.value);
+            const l = parseInt(lightSlider.value);
+
+            const hexColor = hslToHex(h, s, l);
+            const colorName = getColorName(h, s, l);
+
+            // Update preview box
+            if (preview) preview.style.background = hexColor;
+
+            // Update color name
+            if (nameDisplay) nameDisplay.textContent = colorName;
+
+            // Update CSS variable
+            const cssVar = colorElements[elementKey].cssVar;
+            document.documentElement.style.setProperty(cssVar, hexColor);
+        }
+
+        // Initialize HSL color pickers
+        function initColorPickers() {
+            Object.keys(colorElements).forEach(elementKey => {
+                ['hue', 'sat', 'light'].forEach(type => {
+                    const slider = document.getElementById(`${type}${elementKey}`);
+                    if (slider) {
+                        slider.addEventListener('input', () => {
+                            updateColor(elementKey);
+                        });
+                    }
+                });
+
+                // Initial update
+                updateColor(elementKey);
+            });
+        }
+
+        // Color presets with HSL values
+        const colorPresets = {
+            cyberpunk: {
+                'BgPrimary': {h: 210, s: 20, l: 5},
+                'BgSecondary': {h: 215, s: 25, l: 11},
+                'AccentPrimary': {h: 105, s: 100, l: 54},
+                'AccentSecondary': {h: 190, s: 100, l: 50},
+                'TextPrimary': {h: 30, s: 15, l: 89},
+                'Border': {h: 210, s: 15, l: 23}
+            },
+            ocean: {
+                'BgPrimary': {h: 210, s: 45, l: 10},
+                'BgSecondary': {h: 215, s: 30, l: 16},
+                'AccentPrimary': {h: 190, s: 100, l: 50},
+                'AccentSecondary': {h: 210, s: 100, l: 50},
+                'TextPrimary': {h: 210, s: 70, l: 95},
+                'Border': {h: 215, s: 55, l: 27}
+            },
+            sunset: {
+                'BgPrimary': {h: 0, s: 20, l: 9},
+                'BgSecondary': {h: 0, s: 25, l: 15},
+                'AccentPrimary': {h: 15, s: 100, l: 60},
+                'AccentSecondary': {h: 30, s: 90, l: 55},
+                'TextPrimary': {h: 30, s: 100, l: 95},
+                'Border': {h: 0, s: 30, l: 28}
+            },
+            forest: {
+                'BgPrimary': {h: 120, s: 25, l: 9},
+                'BgSecondary': {h: 120, s: 25, l: 15},
+                'AccentPrimary': {h: 145, s: 65, l: 60},
+                'AccentSecondary': {h: 142, s: 70, l: 48},
+                'TextPrimary': {h: 120, s: 50, l: 92},
+                'Border': {h: 120, s: 35, l: 27}
+            },
+            minimal: {
+                'BgPrimary': {h: 0, s: 0, l: 100},
+                'BgSecondary': {h: 0, s: 0, l: 96},
+                'AccentPrimary': {h: 217, s: 80, l: 51},
+                'AccentSecondary': {h: 217, s: 80, l: 64},
+                'TextPrimary': {h: 220, s: 25, l: 18},
+                'Border': {h: 220, s: 15, l: 82}
+            },
+            midnight: {
+                'BgPrimary': {h: 260, s: 40, l: 8},
+                'BgSecondary': {h: 265, s: 35, l: 14},
+                'AccentPrimary': {h: 270, s: 70, l: 65},
+                'AccentSecondary': {h: 270, s: 75, l: 75},
+                'TextPrimary': {h: 270, s: 100, l: 97},
+                'Border': {h: 265, s: 65, l: 35}
+            }
+        };
+
+        function applyPreset(presetName) {
+            const preset = colorPresets[presetName];
+            if (!preset) return;
+
+            Object.keys(preset).forEach(elementKey => {
+                const hsl = preset[elementKey];
+                const hueSlider = document.getElementById(`hue${elementKey}`);
+                const satSlider = document.getElementById(`sat${elementKey}`);
+                const lightSlider = document.getElementById(`light${elementKey}`);
+
+                if (hueSlider) hueSlider.value = hsl.h;
+                if (satSlider) satSlider.value = hsl.s;
+                if (lightSlider) lightSlider.value = hsl.l;
+
+                updateColor(elementKey);
+            });
+
+            showToast('✨ ' + presetName.charAt(0).toUpperCase() + presetName.slice(1) + ' Palette angewendet!');
+        }
+
+        function resetColors() {
+            applyPreset('cyberpunk');
+            showToast('🔄 Auf Standard zurückgesetzt!');
+        }
+
+        // Initialize color pickers after a short delay to ensure DOM is ready
+        setTimeout(initColorPickers, 100);
 
         // Initialize
         updateProgress();
